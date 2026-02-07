@@ -1,0 +1,43 @@
+
+FICHIERS DU PROJET KAGUYA
+=========================
+
+Le projet contient 19 fichiers principaux :
+
+RACINE:
+1. README.md - Documentation principale
+2. STATUS.md - État du projet  
+3. TODO.md - Roadmap
+4. .gitignore - Git rules
+5. main.py - Point d'entrée
+6. config.py - Configuration
+7. setup.py - Installation
+8. test_components.py - Tests
+9. requirements.txt - Dépendances
+
+CORE:
+10. core/__init__.py
+11. core/agent.py - Agent principal
+
+AUDIO:
+12. audio/__init__.py
+13. audio/pipeline.py - Pipeline audio
+
+MEMORY:
+14. memory/__init__.py
+15. memory/memory_manager.py - Système de mémoire
+
+DOCS:
+16. docs/ARCHITECTURE.md - Architecture
+17. docs/QUICKSTART.md - Guide démarrage
+18. docs/EXAMPLES.md - Exemples
+
+POUR OBTENIR LES FICHIERS:
+---------------------------
+
+Option 1: Télécharge kaguya.zip
+Option 2: Consulte les messages précédents de cette conversation
+          Chaque fichier a été créé et son contenu est visible
+
+Option 3: Utilise ce template et remplis les fichiers un par un
+          en consultant la documentation fournie

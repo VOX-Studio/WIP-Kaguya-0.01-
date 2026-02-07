@@ -1,0 +1,92 @@
+{
+  "hardware": {
+    "gpu_name": "RTX 4070 Super",
+    "gpu_vram_gb": 12,
+    "cpu_name": "i7-13700KF",
+    "ram_gb": 32,
+    "cuda_enabled": true,
+    "max_vram_usage_gb": 10.0,
+    "max_ram_gaming_mode_gb": 4.0,
+    "max_ram_quality_mode_gb": 16.0
+  },
+  "audio": {
+    "sample_rate": 16000,
+    "chunk_size": 1024,
+    "channels": 1,
+    "stt_model": "openai/whisper-large-v3",
+    "stt_device": "cuda",
+    "stt_language": "fr",
+    "tts_model_realistic": "facebook/mms-tts-fra",
+    "tts_model_anime": "rvc-anime-fr",
+    "tts_device": "cuda",
+    "vad_threshold": 0.5,
+    "vad_min_speech_duration_ms": 250,
+    "vad_min_silence_duration_ms": 500,
+    "enable_diarization": true,
+    "enable_voiceprint": true,
+    "voiceprint_threshold": 0.75
+  },
+  "memory": {
+    "memory_dir": "./data/memory",
+    "short_term_db": "short_term.db",
+    "long_term_db": "long_term.db",
+    "knowledge_db": "knowledge.db",
+    "short_term_max_entries": 100,
+    "long_term_max_entries": 10000,
+    "knowledge_max_entries": 50000,
+    "enable_decay": true,
+    "decay_factor_days": 120.0,
+    "min_priority_threshold": 0.1,
+    "knowledge_refresh_days": 120
+  },
+  "embodiment": {
+    "display_index": 1,
+    "window_width": 1920,
+    "window_height": 1080,
+    "fullscreen": true,
+    "fps_target": 60,
+    "model_path": "./assets/models/kaguya.vrm",
+    "enable_lip_sync": true,
+    "enable_gaze": true,
+    "enable_idle_behaviors": true,
+    "idle_behavior_interval_s": 30.0,
+    "bored_threshold_s": 300.0,
+    "attention_seeking_threshold_s": 600.0
+  },
+  "presence": {
+    "enable_webcam": false,
+    "webcam_index": 0,
+    "require_headset_confirmation": true,
+    "interrupt_max_attempts": 3,
+    "interrupt_wait_between_s": 5.0,
+    "enable_face_detection": true,
+    "enable_face_recognition": false,
+    "attention_detection_threshold": 0.7
+  },
+  "study": {
+    "enable_autonomous_study": true,
+    "study_wikipedia_only": true,
+    "wikipedia_language": "fr",
+    "study_idle_time_threshold_s": 300.0,
+    "study_max_duration_s": 3600.0,
+    "checkpoint_interval_s": 300.0,
+    "checkpoint_dir": "./data/study/checkpoints",
+    "max_articles_per_session": 10,
+    "summary_compression_ratio": 0.1
+  },
+  "internet": {
+    "enable_internet": true,
+    "default_whitelist": [
+      "fr.wikipedia.org",
+      "en.wikipedia.org",
+      "*.wikimedia.org"
+    ],
+    "allow_custom_whitelist": true
+  },
+  "wake": {
+    "wake_word": "kaguya",
+    "wake_confidence_threshold": 0.8,
+    "rest_mode_cpu_limit_percent": 5.0,
+    "rest_mode_ram_limit_mb": 500.0
+  }
+}

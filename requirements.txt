@@ -1,0 +1,77 @@
+# Kaguya - Dépendances Python
+
+# Core
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Audio processing
+sounddevice>=0.4.6
+soundfile>=0.12.1
+librosa>=0.10.0
+webrtcvad>=2.0.10  # VAD léger pour rest mode
+
+# Speech-to-Text (Whisper local)
+transformers>=4.35.0
+torch>=2.1.0
+torchaudio>=2.1.0
+accelerate>=0.24.0
+
+# Text-to-Speech
+TTS>=0.20.0  # Coqui TTS
+pyttsx3>=2.90  # Fallback TTS simple
+
+# Database
+sqlite3  # Built-in Python
+
+# Computer Vision (optionnel, pour webcam)
+opencv-python>=4.8.0
+mediapipe>=0.10.0  # Face detection/recognition
+
+# Speaker Diarization & Voiceprint
+pyannote.audio>=3.1.0
+speechbrain>=0.5.16
+
+# Wikipedia & Web scraping
+wikipedia>=1.4.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# GUI & Embodiment (VTuber)
+pygame>=2.5.0  # Alternative légère
+# OU PyQt6>=6.6.0  # Si GUI plus complexe nécessaire
+pillow>=10.0.0
+
+# VRM/3D (pour avatar VTuber)
+# pyrr>=0.10.3  # Math 3D
+# moderngl>=5.8.0  # OpenGL moderne
+# NOTE: Pour VRM, considérer une solution Unity/Godot externe
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+tqdm>=4.66.0
+colorama>=0.4.6  # Couleurs terminal Windows
+
+# Logging & Monitoring
+loguru>=0.7.0
+
+# Performance & Resource monitoring
+psutil>=5.9.0  # Monitoring CPU/RAM/GPU
+GPUtil>=1.4.0  # GPU monitoring
+
+# Testing (dev)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Optional: LLM local (si besoin)
+# llama-cpp-python>=0.2.0  # LLaMA local
+# ctransformers>=0.2.0  # GGML models
+# langchain>=0.1.0  # Orchestration LLM
+
+# Optional: Voice cloning/conversion
+# rvc-python>=0.1.0  # RVC pour voix anime (si disponible)
+# so-vits-svc>=0.1.0  # Alternative
+
+# Note: Certains packages peuvent nécessiter CUDA
+# Installer PyTorch avec CUDA: 
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
