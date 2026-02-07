@@ -2,6 +2,7 @@
 Kaguya - Point d'entrée principal
 """
 
+import atexit
 import sys
 import os
 import argparse
@@ -12,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from core.agent import KaguayAgent
 from config import config, Mode
+
 
 
 def print_banner():

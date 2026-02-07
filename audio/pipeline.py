@@ -126,7 +126,13 @@ class STTEngine:
             from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
             import torch
             
-            self.processor = AutoProcessor.from_pretrained(self.model_name)
+            self.processor = cache_dir = "./models_cache"
+            self.processor = AutoProcessor.from_pretrained(
+                self.model_name,
+                cache_dir=cache_dir,
+                local_files_only=True,  # IMPORTANT
+                token=os.getenv("HF_TOKEN", None),
+)
             
             # ✅ CORRECTION: Utiliser dtype au lieu de torch_dtype (déprécié)
             dtype = torch.float16 if self.device == "cuda" else torch.float32
