@@ -1,92 +1,352 @@
 {
+  "version": "0.1.0",
+  "name": "Kaguya",
+  
   "hardware": {
-    "gpu_name": "RTX 4070 Super",
+    "gpu": "RTX 4070 Super",
     "gpu_vram_gb": 12,
-    "cpu_name": "i7-13700KF",
+    "vram_limit_mb": 10000,
+    "cpu": "i7-13700KF",
+    "cpu_cores": 16,
     "ram_gb": 32,
-    "cuda_enabled": true,
-    "max_vram_usage_gb": 10.0,
-    "max_ram_gaming_mode_gb": 4.0,
-    "max_ram_quality_mode_gb": 16.0
+    "ram_limit_mb": 16000,
+    "display_count": 2,
+    "primary_display": 0,
+    "embodiment_display": 1
   },
+  
   "audio": {
-    "sample_rate": 16000,
-    "chunk_size": 1024,
-    "channels": 1,
-    "stt_model": "openai/whisper-large-v3",
-    "stt_device": "cuda",
-    "stt_language": "fr",
-    "tts_model_realistic": "facebook/mms-tts-fra",
-    "tts_model_anime": "rvc-anime-fr",
-    "tts_device": "cuda",
-    "vad_threshold": 0.5,
-    "vad_min_speech_duration_ms": 250,
-    "vad_min_silence_duration_ms": 500,
-    "enable_diarization": true,
-    "enable_voiceprint": true,
-    "voiceprint_threshold": 0.75
+    "stt": {
+      "engine": "whisper",
+      "model_realtime": "openai/whisper-base",
+      "model_quality": "openai/whisper-large-v3",
+      "device": "cuda",
+      "compute_type": "float16",
+      "batch_size": 1,
+      "language": "fr",
+      "sample_rate": 16000,
+      "chunk_duration_s": 5
+    },
+    
+    "tts": {
+      "engine": "coqui",
+      "model": "tts_models/multilingual/multi-dataset/your_tts",
+      "voice_type": "anime",
+      "voice_path": null,
+      "sample_rate": 22050,
+      "device": "cuda",
+      "speed": 1.0,
+      "emotions": {
+        "neutral": 1.0,
+        "happy": 1.2,
+        "sad": 0.8,
+        "angry": 1.1,
+        "excited": 1.3
+      }
+    },
+    
+    "wake_word": {
+      "enabled": true,
+      "engine": "porcupine",
+      "keywords": ["computer"],
+      "custom_keywords": ["kaguya"],
+      "sensitivity": 0.5,
+      "access_key": null
+    },
+    
+    "vad": {
+      "enabled": true,
+      "aggressiveness": 2,
+      "frame_duration_ms": 30
+    },
+    
+    "diarization": {
+      "enabled": false,
+      "min_speakers": 1,
+      "max_speakers": 3
+    }
   },
+  
+  "modes": {
+    "realtime": {
+      "description": "Mode gaming - Faible latence",
+      "max_vram_mb": 4000,
+      "max_ram_mb": 8000,
+      "stt_model": "base",
+      "priority": "low_latency",
+      "max_response_time_ms": 500,
+      "quality_sacrifice": true,
+      "enable_embodiment": true,
+      "embodiment_fps": 30
+    },
+    
+    "quality": {
+      "description": "Mode recherche - Haute qualité",
+      "max_vram_mb": 10000,
+      "max_ram_mb": 16000,
+      "stt_model": "large-v3",
+      "priority": "accuracy",
+      "max_response_time_ms": 5000,
+      "quality_sacrifice": false,
+      "enable_embodiment": true,
+      "embodiment_fps": 60
+    }
+  },
+  
   "memory": {
-    "memory_dir": "./data/memory",
-    "short_term_db": "short_term.db",
-    "long_term_db": "long_term.db",
-    "knowledge_db": "knowledge.db",
-    "short_term_max_entries": 100,
-    "long_term_max_entries": 10000,
-    "knowledge_max_entries": 50000,
-    "enable_decay": true,
-    "decay_factor_days": 120.0,
-    "min_priority_threshold": 0.1,
-    "knowledge_refresh_days": 120
+    "short_term": {
+      "enabled": true,
+      "max_entries": 100,
+      "retention_minutes": 30,
+      "priority_threshold": 0.3
+    },
+    
+    "long_term": {
+      "enabled": true,
+      "max_entries": 10000,
+      "storage_path": "./memory/long_term.db",
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "similarity_threshold": 0.7
+    },
+    
+    "knowledge": {
+      "enabled": true,
+      "max_entries": 50000,
+      "storage_path": "./memory/knowledge.db",
+      "source": "wikipedia",
+      "language": "fr",
+      "auto_update": true,
+      "update_interval_hours": 24
+    },
+    
+    "context_window": {
+      "max_tokens": 4096,
+      "overlap_tokens": 512
+    }
   },
+  
   "embodiment": {
-    "display_index": 1,
-    "window_width": 1920,
-    "window_height": 1080,
+    "enabled": true,
+    "engine": "pygame",
+    "avatar_path": "./embodiment/assets/kaguya_avatar.png",
+    "animation_fps": 60,
+    "display_id": 1,
+    "resolution": [1920, 1080],
     "fullscreen": true,
-    "fps_target": 60,
-    "model_path": "./assets/models/kaguya.vrm",
-    "enable_lip_sync": true,
-    "enable_gaze": true,
-    "enable_idle_behaviors": true,
-    "idle_behavior_interval_s": 30.0,
-    "bored_threshold_s": 300.0,
-    "attention_seeking_threshold_s": 600.0
+    
+    "animations": {
+      "idle": {
+        "path": "./embodiment/animations/idle.json",
+        "loop": true,
+        "frequency": 0.8
+      },
+      "talking": {
+        "path": "./embodiment/animations/talking.json",
+        "loop": true,
+        "sync_audio": true
+      },
+      "listening": {
+        "path": "./embodiment/animations/listening.json",
+        "loop": true
+      },
+      "thinking": {
+        "path": "./embodiment/animations/thinking.json",
+        "loop": true
+      }
+    },
+    
+    "emotions": {
+      "neutral": {"blend": 1.0, "duration_s": 0.5},
+      "happy": {"blend": 1.0, "duration_s": 0.5},
+      "sad": {"blend": 1.0, "duration_s": 0.5},
+      "angry": {"blend": 1.0, "duration_s": 0.5},
+      "surprised": {"blend": 1.0, "duration_s": 0.3}
+    },
+    
+    "behaviors": {
+      "blink": {
+        "enabled": true,
+        "interval_min_s": 2.0,
+        "interval_max_s": 6.0,
+        "duration_s": 0.15
+      },
+      "breath": {
+        "enabled": true,
+        "frequency_hz": 0.2,
+        "amplitude": 0.05
+      },
+      "head_movement": {
+        "enabled": true,
+        "frequency_hz": 0.1,
+        "amplitude_deg": 3.0
+      }
+    }
   },
+  
+  "conversation": {
+    "llm": {
+      "provider": "local",
+      "model": "mistral-7b-instruct",
+      "temperature": 0.7,
+      "top_p": 0.9,
+      "max_tokens": 512,
+      "presence_penalty": 0.1,
+      "frequency_penalty": 0.1
+    },
+    
+    "personality": {
+      "name": "Kaguya",
+      "role": "Assistant vocal personnel",
+      "traits": [
+        "helpful",
+        "friendly",
+        "knowledgeable",
+        "patient",
+        "enthusiastic"
+      ],
+      "speaking_style": "casual",
+      "humor_level": 0.3
+    },
+    
+    "context": {
+      "include_memory": true,
+      "include_knowledge": true,
+      "max_history_turns": 10
+    }
+  },
+  
   "presence": {
-    "enable_webcam": false,
-    "webcam_index": 0,
-    "require_headset_confirmation": true,
-    "interrupt_max_attempts": 3,
-    "interrupt_wait_between_s": 5.0,
-    "enable_face_detection": true,
-    "enable_face_recognition": false,
-    "attention_detection_threshold": 0.7
+    "enabled": false,
+    "camera_id": 0,
+    "detection_interval_s": 5.0,
+    "face_detection": true,
+    "gaze_tracking": false,
+    "distance_threshold_cm": 100,
+    
+    "behaviors": {
+      "greet_on_arrival": true,
+      "pause_on_absence": true,
+      "resume_on_return": true
+    }
   },
+  
   "study": {
-    "enable_autonomous_study": true,
-    "study_wikipedia_only": true,
-    "wikipedia_language": "fr",
-    "study_idle_time_threshold_s": 300.0,
-    "study_max_duration_s": 3600.0,
-    "checkpoint_interval_s": 300.0,
-    "checkpoint_dir": "./data/study/checkpoints",
-    "max_articles_per_session": 10,
-    "summary_compression_ratio": 0.1
-  },
-  "internet": {
-    "enable_internet": true,
-    "default_whitelist": [
-      "fr.wikipedia.org",
-      "en.wikipedia.org",
-      "*.wikimedia.org"
+    "enabled": true,
+    "source": "wikipedia",
+    "language": "fr",
+    "auto_study": false,
+    "schedule": {
+      "enabled": false,
+      "time": "02:00",
+      "duration_minutes": 60
+    },
+    
+    "topics": [
+      "science",
+      "technology",
+      "history",
+      "arts",
+      "culture"
     ],
-    "allow_custom_whitelist": true
+    
+    "filters": {
+      "min_article_length": 500,
+      "max_article_length": 50000,
+      "quality_threshold": 0.7
+    }
   },
-  "wake": {
-    "wake_word": "kaguya",
-    "wake_confidence_threshold": 0.8,
-    "rest_mode_cpu_limit_percent": 5.0,
-    "rest_mode_ram_limit_mb": 500.0
+  
+  "scheduler": {
+    "enabled": true,
+    "storage_path": "./memory/reminders.db",
+    "check_interval_s": 60,
+    "notification_methods": ["voice", "display"]
+  },
+  
+  "network": {
+    "enabled": false,
+    "whitelist": [
+      "fr.wikipedia.org",
+      "en.wikipedia.org"
+    ],
+    "proxy": null,
+    "timeout_s": 30
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "file": "./logs/kaguya.log",
+    "max_file_size_mb": 10,
+    "backup_count": 5,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    
+    "log_conversations": true,
+    "log_audio": false,
+    "log_memory_operations": true
+  },
+  
+  "ui": {
+    "enabled": true,
+    "style": "minimal",
+    "theme": "dark",
+    "position": "bottom_right",
+    "size": [400, 600],
+    "opacity": 0.9,
+    "always_on_top": true,
+    
+    "elements": {
+      "status_bar": true,
+      "transcript": true,
+      "memory_viewer": false,
+      "resource_monitor": true,
+      "settings": true
+    }
+  },
+  
+  "performance": {
+    "monitoring": {
+      "enabled": true,
+      "interval_s": 5.0,
+      "alert_thresholds": {
+        "vram_usage_percent": 90,
+        "ram_usage_percent": 85,
+        "cpu_usage_percent": 80
+      }
+    },
+    
+    "optimization": {
+      "auto_garbage_collection": true,
+      "cache_models": true,
+      "use_mixed_precision": true,
+      "gradient_checkpointing": false
+    }
+  },
+  
+  "security": {
+    "local_only": true,
+    "encrypt_memory": false,
+    "require_wake_word": true,
+    "max_session_duration_minutes": 480,
+    "auto_lock_on_absence": false
+  },
+  
+  "experimental": {
+    "multimodal": {
+      "enabled": false,
+      "vision_model": "clip",
+      "image_understanding": false
+    },
+    
+    "advanced_tts": {
+      "voice_cloning": false,
+      "emotion_synthesis": true,
+      "prosody_control": true
+    },
+    
+    "proactive_assistance": {
+      "enabled": false,
+      "context_awareness": true,
+      "suggestion_threshold": 0.7
+    }
   }
 }
