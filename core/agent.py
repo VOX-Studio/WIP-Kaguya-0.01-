@@ -13,7 +13,7 @@ import queue
 
 from config import config, Mode, EmotionStyle, VoiceType
 from memory.memory_manager import MemoryManager, MemoryEntry, MemoryType, MemoryPriority
-from audio.pipeline import AudioPipeline
+from audio.audio_pipeline import AudioPipeline
 
 
 class AgentState(Enum):

@@ -71,7 +71,7 @@ except Exception as e:
 # Test 3: Audio Pipeline (structure seulement)
 print("\n[3/4] Test Audio Pipeline (structure)...")
 try:
-    from audio.pipeline import (
+    from audio.audio_pipeline import (
         AudioPipeline, VAD, WakeWordDetector, AudioChunk
     )
     
